@@ -76,7 +76,7 @@ public class WeatherActivity extends AppCompatActivity {
         comfortText = (TextView) findViewById(R.id.comfort_text);
         carWashText = (TextView) findViewById(R.id.car_wash_text);
         sportText = (TextView) findViewById(R.id.sport_text);
-//        bingPicImg = (ImageView) findViewById(R.id.pic_img);
+        bingPicImg = (ImageView) findViewById(R.id.pic_img);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navButton = (Button) findViewById(R.id.nav_button);
@@ -97,12 +97,12 @@ public class WeatherActivity extends AppCompatActivity {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather",null);
-//        String bingPic = prefs.getString("bing_pic",null);
-//        if (bingPic != null) {
-//            Glide.with(this).load(bingPic).into(bingPicImg);
-//        } else {
-//            loadBingPic();
-//        }
+        String bingPic = prefs.getString("bing_pic",null);
+        if (bingPic != null) {
+            Glide.with(this).load(bingPic).into(bingPicImg);
+        } else {
+            loadBingPic();
+        }
         if (weatherString != null) {
             //有缓存是直接解析天气数据
             Weather weather = Utility.handleWeatherResponse(weatherString);
@@ -127,7 +127,7 @@ public class WeatherActivity extends AppCompatActivity {
      * 加载必应每日一图
      */
     private void loadBingPic() {
-        String requestBingPic = "https://api.kdcc.cn";
+        String requestBingPic = "https://api.dujin.org/bing/m.php";
         HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -184,7 +184,7 @@ public class WeatherActivity extends AppCompatActivity {
                 });
             }
         });
-//        loadBingPic();
+        loadBingPic();
     }
 
     /**
